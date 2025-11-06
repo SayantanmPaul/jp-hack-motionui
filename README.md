@@ -1,36 +1,49 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# JP Hackathon UI Development
 
-## Getting Started
+### Project Structure
 
-First, run the development server:
+```
+jp-analytics-console/
+├── src/
+│   ├── app/              # Main application pages, layouts, and routes
+│   ├── components/
+│   │   ├── provider/     # context providers
+│   │   ├── shared/       # most used components across the app
+│   │   ├── ui/           # Core UI elements (buttons, cards, etc.)
+│   ├── lib/              # utils, zustand stores
+└──...
+```
+### Installation
+
+1.  Clone the repository:
+    ```bash
+    git clone https://github.com/SayantanmPaul/jp-analytics-console
+    ```
+2.  Navigate to the project directory:
+    ```bash
+    cd juspay-analytics-console
+    ```
+3.  Install dependencies:
+    ```bash
+    npm install
+    ```
+### Running the Development Server
+
+To start the development server, run:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
+
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Disclaimer & Repository Policy
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+This repository is created solely for evaluation purposes as part of an organization's engineering internal hackathon.
+It is temporary and will be made private or deleted once the review process is complete and a final decision is communicated by the team.
 
-## Learn More
+### Author
+**Sayantan Paul**
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+[sayantanpaul.com](http://www.sayantanpaul.com/) · [linkedIn](https://www.linkedin.com/in/imsayantanpaul/) · [x](https://x.com/sayantanm_p) 
