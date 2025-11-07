@@ -3,7 +3,7 @@
 ### Project Structure
 
 ```
-jp-analytics-console/
+jp-hack-motionui/
 ├── src/
 │   ├── app/              # Main application pages, layouts, and routes
 │   ├── components/

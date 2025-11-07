@@ -17,9 +17,13 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        {/*  script for keep track on rerendering - react-scan */}
         <Script crossOrigin="anonymous" src="//unpkg.com/react-scan/dist/auto.global.js" />
       </head>
-      <body className={cn('bg-background font-sans text-foreground min-h-screen antialiased')}>
+      <body
+        suppressHydrationWarning
+        className={cn('bg-background font-sans text-foreground min-h-screen antialiased')}
+      >
         <ThemeProvider>{children}</ThemeProvider>
       </body>
     </html>
