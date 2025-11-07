@@ -22,15 +22,19 @@ const DropDownNavigation = ({
   navigationData,
 }: DropDownNavigationProps) => {
   const [stack, setStack] = React.useState<NavigationProps[]>([]);
+  const [isBackWard, setIsBackWard] = React.useState<boolean>(false);
 
+  // get the list of current items
   const currentList =
     stack.length === 0 ? navigationData : (stack[stack.length - 1].children ?? []);
 
   const goBack = () => {
+    setIsBackWard(true);
     setStack((prev) => prev.slice(0, -1));
   };
 
   const goForward = (item: NavigationProps) => {
+    setIsBackWard(false);
     setStack((prev) => [...prev, item]);
   };
 
@@ -59,34 +63,34 @@ const DropDownNavigation = ({
 
             <motion.div
               transition={{ duration: 0.45, ease: [0.25, 0.1, 0.25, 1] }}
-              className="bg-gray-100 flex flex-col rounded-4xl px-8 py-6 max-w-xl mx-auto shadow-lg gap-4 max-h-[85vh] overflow-hidden w-full"
+              className="bg-gray-100 rounded-4xl px-8 py-6 max-w-xl mx-auto shadow-lg max-h-[85vh] overflow-hidden w-full h-auto"
             >
-              {stack.length > 0 && (
-                <button
-                  aria-label="Go back"
-                  className="flex items-center gap-2 text-sm mb-3 "
-                  onClick={goBack}
-                >
-                  <ChevronLeftIcon className=" size-4" /> Back
-                </button>
-              )}
               <div className="relative overflow-hidden">
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={stack.length}
-                    initial={{ opacity: 0, x: 20 }}
+                    initial={{ opacity: 0, x: isBackWard ? -20 : 20 }}
                     animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -20 }}
+                    exit={{ opacity: 0, x: isBackWard ? 20 : -20 }}
                     transition={{
                       type: 'spring',
-                      stiffness: 650,
+                      stiffness: 850,
                       damping: 35,
-                      mass: 0.05,
+                      mass: 0.03,
                     }}
                     // snappyness behavior add
                     className="flex flex-col gap-4"
                     role="menu"
                   >
+                    {stack.length > 0 && (
+                      <button
+                        aria-label="Go back"
+                        className="flex items-center gap-2 text-sm mb-3 cursor-pointer w-fit "
+                        onClick={goBack}
+                      >
+                        <ChevronLeftIcon className=" size-4" /> Back
+                      </button>
+                    )}
                     {currentList.map((item, i) => (
                       <NavItem
                         key={`nav-item-${i}-${item.title}`}
