@@ -38,7 +38,7 @@ const DropDownNavigation = () => {
         </Drawer.Trigger>
         <Drawer.Portal>
           <Drawer.Overlay className="fixed inset-0 bg-black/40 backdrop-blur-sm" />
-          <Drawer.Content className="fixed bottom-4 left-4 right-4 outline-none">
+          <Drawer.Content tabIndex={-1} className="fixed bottom-4 left-4 right-4 outline-none">
             <Drawer.Title className="hidden">Drawer for React.</Drawer.Title>
 
             <motion.div
@@ -46,7 +46,11 @@ const DropDownNavigation = () => {
               className="bg-gray-100 flex flex-col rounded-4xl px-8 py-6 max-w-xl mx-auto shadow-lg gap-4 max-h-[85vh] overflow-hidden w-full"
             >
               {stack.length > 0 && (
-                <button className="flex items-center gap-2 text-sm mb-3 " onClick={goBack}>
+                <button
+                  aria-label="Go back"
+                  className="flex items-center gap-2 text-sm mb-3 "
+                  onClick={goBack}
+                >
                   <ChevronLeftIcon className=" size-4" /> Back
                 </button>
               )}
@@ -61,10 +65,11 @@ const DropDownNavigation = () => {
                       type: 'spring',
                       stiffness: 650,
                       damping: 35,
-                      mass: 0.25,
+                      mass: 0.05,
                     }}
                     // snappyness behavior add
                     className="flex flex-col gap-4"
+                    role="menu"
                   >
                     {currentList.map((item, i) => (
                       <NavItem
@@ -97,13 +102,19 @@ const NavItem = ({
   const isParent = children && children.length > 0;
 
   return (
-    <button onClick={() => isParent && onForward(item)}>
+    <button
+      role="menuitem"
+      aria-haspopup={isParent ? 'true' : undefined}
+      aria-expanded={isParent ? 'false' : undefined}
+      onClick={() => isParent && onForward(item)}
+      className="cursor-pointer group"
+    >
       <div className="flex items-start gap-0">
         {' '}
         <LucideIcon className="size-4 mt-1 shrink-0" />
         <div className="flex flex-col px-2 flex-1 gap-1 items-start">
           {' '}
-          <span className="font-base text-sm text-start">{title}</span>{' '}
+          <span className="font-base text-sm text-start group">{title}</span>{' '}
           <span className="text-xs text-gray-500 text-start">{desc}</span>{' '}
         </div>{' '}
         {isParent && <ChevronRightIcon className="size-4 mt-1" />}
