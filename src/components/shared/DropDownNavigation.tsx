@@ -42,16 +42,15 @@ const DropDownNavigation = () => {
             <Drawer.Title className="hidden">Drawer for React.</Drawer.Title>
 
             <motion.div
-              layout
               transition={{ duration: 0.45, ease: [0.25, 0.1, 0.25, 1] }}
               className="bg-gray-100 flex flex-col rounded-4xl px-8 py-6 max-w-xl mx-auto shadow-lg gap-4 max-h-[85vh] overflow-hidden w-full"
             >
               {stack.length > 0 && (
-                <button className="flex items-center text-sm text-gray-700 mb-2" onClick={goBack}>
-                  <ChevronLeftIcon className="mr-1 size-4" /> Back
+                <button className="flex items-center gap-2 text-sm mb-3 " onClick={goBack}>
+                  <ChevronLeftIcon className=" size-4" /> Back
                 </button>
               )}
-              <div className="relative overflow-hidden h-full">
+              <div className="relative overflow-hidden">
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={stack.length}
@@ -59,10 +58,13 @@ const DropDownNavigation = () => {
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: -20 }}
                     transition={{
-                      duration: 0.3,
-                      ease: 'easeInOut',
+                      type: 'spring',
+                      stiffness: 650,
+                      damping: 35,
+                      mass: 0.25,
                     }}
-                    className="flex flex-col gap-2"
+                    // snappyness behavior add
+                    className="flex flex-col gap-4"
                   >
                     {currentList.map((item, i) => (
                       <NavItem
