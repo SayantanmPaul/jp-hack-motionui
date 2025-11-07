@@ -2,18 +2,29 @@
 
 import React from 'react';
 import { Button } from '../ui/button';
-
 import { cn } from '@/lib/utils';
 import { Drawer } from 'vaul';
-import { NAVIGATION_DATA, NavigationProps } from '@/mocks/navigations';
+import { NavigationProps } from '@/mocks/navigations';
 import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
 
-const DropDownNavigation = () => {
+interface DropDownNavigationProps {
+  customTrigger?: React.ReactNode;
+  triggrLable: string;
+  className?: string;
+  navigationData: NavigationProps[];
+}
+
+const DropDownNavigation = ({
+  customTrigger,
+  triggrLable = 'Open Menu',
+  className,
+  navigationData,
+}: DropDownNavigationProps) => {
   const [stack, setStack] = React.useState<NavigationProps[]>([]);
 
   const currentList =
-    stack.length === 0 ? NAVIGATION_DATA : (stack[stack.length - 1].children ?? []);
+    stack.length === 0 ? navigationData : (stack[stack.length - 1].children ?? []);
 
   const goBack = () => {
     setStack((prev) => prev.slice(0, -1));
@@ -27,14 +38,19 @@ const DropDownNavigation = () => {
     <div className="">
       <Drawer.Root>
         <Drawer.Trigger asChild>
-          <Button
-            className={cn(
-              'bg-indigo-500 hover:bg-indigo-600 transition-colors duration-300 rounded-full px-3 py-1 cursor-pointer',
-              'shadow-[0px_0px_0px_1px_rgba(0,0,0,0.06),0px_1px_1px_-0.5px_rgba(0,0,0,0.06),0px_3px_3px_-1.5px_rgba(0,0,0,0.06),0px_6px_6px_-3px_rgba(0,0,0,0.06),0px_12px_12px_-6px_rgba(0,0,0,0.06),0px_24px_24px_-12px_rgba(0,0,0,0.06)]', //button shadow
-            )}
-          >
-            Open Menu
-          </Button>
+          {customTrigger ? (
+            customTrigger
+          ) : (
+            <Button
+              className={cn(
+                'bg-indigo-500 hover:bg-indigo-600 transition-colors duration-300 rounded-full px-3 py-1 cursor-pointer',
+                'shadow-[0px_0px_0px_1px_rgba(0,0,0,0.06),0px_1px_1px_-0.5px_rgba(0,0,0,0.06),0px_3px_3px_-1.5px_rgba(0,0,0,0.06),0px_6px_6px_-3px_rgba(0,0,0,0.06),0px_12px_12px_-6px_rgba(0,0,0,0.06),0px_24px_24px_-12px_rgba(0,0,0,0.06)]', //button shadow
+                className,
+              )}
+            >
+              {triggrLable}
+            </Button>
+          )}
         </Drawer.Trigger>
         <Drawer.Portal>
           <Drawer.Overlay className="fixed inset-0 bg-black/40 backdrop-blur-sm" />
@@ -107,14 +123,14 @@ const NavItem = ({
       aria-haspopup={isParent ? 'true' : undefined}
       aria-expanded={isParent ? 'false' : undefined}
       onClick={() => isParent && onForward(item)}
-      className="cursor-pointer group"
+      className="cursor-pointer "
     >
       <div className="flex items-start gap-0">
         {' '}
         <LucideIcon className="size-4 mt-1 shrink-0" />
         <div className="flex flex-col px-2 flex-1 gap-1 items-start">
           {' '}
-          <span className="font-base text-sm text-start group">{title}</span>{' '}
+          <span className="font-base text-sm text-start">{title}</span>{' '}
           <span className="text-xs text-gray-500 text-start">{desc}</span>{' '}
         </div>{' '}
         {isParent && <ChevronRightIcon className="size-4 mt-1" />}
